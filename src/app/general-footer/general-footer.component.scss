@@ -1,0 +1,126 @@
+@import "../../styles.scss";
+
+.footer-container {
+  height: 70%;
+  margin-top: 5rem;
+  padding: 2rem;
+  background-color: $box-color;
+  color: $text-color;
+  box-shadow: 0 -4px 15px rgba(255, 255, 255, 0.3);
+  border-top: 1px solid $box-color-light;
+  border-radius: 30px 30px 20px 20px;
+
+  display: grid;
+  grid-template-areas:
+    "brand brand"
+    "list list"
+    ". note";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 40px;
+  align-items: start;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .footer-brand {
+    grid-area: brand;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: "Arial", sans-serif;
+    background: linear-gradient(to right, blue, lightblue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    align-self: start;
+    justify-self: start;
+  }
+
+  .list-container {
+    grid-area: list;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: $box-color;
+    box-shadow: 0 4px 8px lightblue;
+    border-radius: 20px;
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
+  }
+
+  .list-group {
+    display: flex;
+    flex-direction: row;
+    gap: 40px;
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  .footer-note {
+    grid-area: note;
+    justify-self: end;
+    align-self: end;
+    font-size: 1.1rem;
+    color: $accent-color-light;
+    font-style: italic;
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  }
+
+  h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: $text-color;
+  }
+
+  ul {
+    margin-left: 13px;
+    padding: 0;
+    list-style: none;
+    font-size: 1rem;
+    color: $text-color;
+  }
+
+  li {
+    margin-top: 20px;
+    margin-bottom: 1rem;
+    &:before {
+      content: "\2022";
+      color: $text-color;
+      display: inline-block;
+      width: 0.8em;
+      margin-left: -0.8em;
+    }
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "brand"
+      "list"
+      "note";
+    text-align: center;
+    gap: 20px;
+
+    .footer-brand,
+    .footer-note {
+      justify-self: center;
+    }
+
+    .list-group {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+}

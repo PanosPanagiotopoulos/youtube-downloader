@@ -1,0 +1,10 @@
+<div class="container-fluid">
+  <yt-downloader-root-navigation-services
+    (serviceName)="setCurrentService($event)"
+  ></yt-downloader-root-navigation-services>
+  <yt-downloader-root-input-view
+    [serviceName]="currentService"
+    (currentMenuService)="setCurrentService($event)"
+  ></yt-downloader-root-input-view>
+  <yt-downloader-root-general-footer> </yt-downloader-root-general-footer>
+</div>

@@ -1,0 +1,110 @@
+<div class="sidebar" [ngClass]="{ active: isActive }">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="list-group-item">
+      <a
+        class="nav-link"
+        href="javascript:void(0)"
+        (click)="setCurrentMenuService($event)"
+        >Download Video</a
+      >
+    </li>
+    <li class="list-group-item">
+      <a
+        class="nav-link"
+        href="javascript:void(0)"
+        (click)="setCurrentMenuService($event)"
+        >Download Audio</a
+      >
+    </li>
+    <li class="list-group-item">
+      <a class="nav-link" href="javascript:void(0)" (click)="scrollToFooter()"
+        >Contact</a
+      >
+    </li>
+  </ul>
+  <div class="sidebar-footer mt-auto p-2 bg-secondary text-white text-center">
+    <small>© 2024 Your Company</small>
+  </div>
+</div>
+
+<div class="main-container container">
+  <h1 class="category-title">Youtube Downloader<br />{{ serviceName }}</h1>
+  <h5 class="notice">Download for free now!</h5>
+  <div class="input-container row mx-1">
+    <div class="col">
+      <input
+        type="text"
+        placeholder="Enter the link here"
+        class="form-control styled-input"
+        [(ngModel)]="url"
+      />
+    </div>
+    <div class="col-auto">
+      <button
+        class="btn btn-primary styled-button"
+        (click)="handleButtonClick()"
+      >
+        <div class="button-content">
+          <div #buttonIconWrapper class="button-icon-wrapper">
+            <img
+              src="assets/cloud-download.png"
+              class="button-icon"
+              alt="Download Icon"
+            />
+          </div>
+          <div class="button-separator"></div>
+          <div class="button-text">Download</div>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showErrorPopup" class="error-popup">
+    Download failed. Please try again.
+  </div>
+
+  <h5 class="no-copyright">
+    {{ "@ " }}No copyright claims on downloaded content.
+  </h5>
+  <div class="photo-grid">
+    <div class="photo-item">
+      <a
+        href="https://www.facebook.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="assets/vecteezy_facebook-logo-png-facebook-icon-transparent-png_18930481.png"
+        />
+      </a>
+    </div>
+    <div class="photo-item">
+      <a
+        href="https://www.instagram.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src="assets/—Pngtree—3d instagram icon_4169165.png" />
+      </a>
+    </div>
+    <div class="photo-item">
+      <a
+        href="https://www.tiktok.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src="assets/vecteezy_tik-tok-icon-3d-render_9826607.png" />
+      </a>
+    </div>
+    <div class="photo-item">
+      <a href="https://www.x.com" target="_blank" rel="noopener noreferrer">
+        <img
+          src="assets/vecteezy_new-twitter-x-logo-twitter-icon-x-social-media-icon_42148611.png"
+        />
+      </a>
+    </div>
+  </div>
+</div>

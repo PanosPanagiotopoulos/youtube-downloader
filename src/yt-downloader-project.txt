@@ -1,0 +1,1336 @@
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\app.component.html
+
+<div class="container-fluid">
+  <yt-downloader-root-navigation-services
+    (serviceName)="setCurrentService($event)"
+  ></yt-downloader-root-navigation-services>
+  <yt-downloader-root-input-view
+    [serviceName]="currentService"
+    (currentMenuService)="setCurrentService($event)"
+  ></yt-downloader-root-input-view>
+  <yt-downloader-root-general-footer> </yt-downloader-root-general-footer>
+</div>
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\app.component.scss
+
+@import "../styles.scss";
+
+body {
+  background-color: $primary-color;
+  color: $text-color;
+  margin: 0;
+  padding: 0;
+}
+
+:host {
+  display: block;
+  background-color: $primary-color;
+  color: $text-color;
+}
+
+.container-fluid {
+  padding: 16px;
+  background-color: $primary-color;
+  color: $text-color;
+  min-height: 100vh;
+
+  @media (max-width: 768px) {
+    padding: 8px;
+  }
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 8px;
+  }
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\app.component.spec.ts
+
+import { TestBed } from '@angular/core/testing';
+import { AppComponent } from './app.component';
+
+describe('AppComponent', () => {
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [AppComponent],
+    }).compileComponents();
+  });
+
+  it('should create the app', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app).toBeTruthy();
+  });
+
+  it(`should have the 'hotelinventoryapp' title`, () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    const app = fixture.componentInstance;
+    expect(app.title).toEqual('hotelinventoryapp');
+  });
+
+  it('should render title', () => {
+    const fixture = TestBed.createComponent(AppComponent);
+    fixture.detectChanges();
+    const compiled = fixture.nativeElement as HTMLElement;
+    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, hotelinventoryapp');
+  });
+});
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\app.component.ts
+
+import { Component } from '@angular/core';
+import { RouterOutlet } from '@angular/router';
+import { NavigationServicesComponent } from './navigation-services/navigation-services.component';
+import { InputViewComponent } from './input-view/input-view.component';
+import { GeneralFooterComponent } from "./general-footer/general-footer.component";
+
+@Component({
+  selector: 'yt-downloader-root',
+  standalone: true,
+  imports: [RouterOutlet, NavigationServicesComponent, InputViewComponent, GeneralFooterComponent],
+  templateUrl: './app.component.html',
+  styleUrl: './app.component.scss',
+})
+export class AppComponent {
+  title = 'Youtube Downloader';
+  currentService: string = 'Download Video';
+
+  setCurrentService(currentService: string) {
+    this.currentService = currentService;
+  }
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\app.config.server.ts
+
+import { mergeApplicationConfig, ApplicationConfig } from '@angular/core';
+import { provideServerRendering } from '@angular/platform-server';
+import { appConfig } from './app.config';
+
+const serverConfig: ApplicationConfig = {
+  providers: [
+    provideServerRendering()
+  ]
+};
+
+export const config = mergeApplicationConfig(appConfig, serverConfig);
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\app.config.ts
+
+import { ApplicationConfig, provideZoneChangeDetection } from '@angular/core';
+import { provideRouter } from '@angular/router';
+
+import { routes } from './app.routes';
+import { provideClientHydration } from '@angular/platform-browser';
+
+export const appConfig: ApplicationConfig = {
+  providers: [provideZoneChangeDetection({ eventCoalescing: true }), provideRouter(routes), provideClientHydration()]
+};
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\app.routes.ts
+
+import { Routes } from '@angular/router';
+
+export const routes: Routes = [];
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\general-footer\general-footer.component.html
+
+<div class="footer-container">
+  <div class="footer-brand gradient-title">Youtube Downloader</div>
+  <div class="list-container">
+    <div class="list-group">
+      <div class="col-md-6">
+        <h5>General Information</h5>
+        <ul class="list-unstyled">
+          <li>About Us</li>
+          <li>Privacy Policy</li>
+          <li>Terms of Service</li>
+          <li>FAQ</li>
+        </ul>
+      </div>
+      <div class="col-md-6">
+        <h5>Contact Information</h5>
+        <ul class="list-unstyled">
+          <li>Email: info{{ "@" }}example.com</li>
+          <li>Phone: +123 456 7890</li>
+          <li>Address: 123 Main Street, City, Country</li>
+          <li>Support: support{{ "@" }}example.com</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer-note">Thank you for choosing us for your services</div>
+</div>
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\general-footer\general-footer.component.scss
+
+@import "../../styles.scss";
+
+.footer-container {
+  height: 70%;
+  margin-top: 5rem;
+  padding: 2rem;
+  background-color: $box-color;
+  color: $text-color;
+  box-shadow: 0 -4px 15px rgba(255, 255, 255, 0.3); /* Prominent white box shadow */
+  border-top: 1px solid $box-color-light;
+  border-radius: 30px 30px 20px 20px; /* Softer rounded corners */
+
+  display: grid;
+  grid-template-areas:
+    "brand brand"
+    "list list"
+    ". note";
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto 1fr auto;
+  gap: 40px;
+  align-items: start;
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    padding: 1rem;
+  }
+
+  .footer-brand {
+    grid-area: brand;
+    font-size: 2rem;
+    font-weight: bold;
+    font-family: "Arial", sans-serif;
+    background: linear-gradient(to right, blue, lightblue);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    align-self: start;
+    justify-self: start;
+  }
+
+  .list-container {
+    grid-area: list;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1.5rem;
+    background-color: $box-color; /* White background for the lists box */
+    box-shadow: 0 4px 8px lightblue; /* Subtle box shadow */
+    border-radius: 20px; /* Rounded corners */
+
+    @media (max-width: 768px) {
+      padding: 1rem;
+    }
+  }
+
+  .list-group {
+    display: flex;
+    flex-direction: row;
+    gap: 40px; /* Space between the two lists */
+
+    @media (max-width: 768px) {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+
+  .footer-note {
+    grid-area: note;
+    justify-self: end;
+    align-self: end;
+    font-size: 1.1rem;
+    color: $accent-color-light;
+    font-style: italic;
+
+    @media (max-width: 768px) {
+      font-size: 0.9rem;
+      text-align: center;
+    }
+  }
+
+  h5 {
+    font-size: 1.2rem;
+    font-weight: bold;
+    margin-bottom: 0.5rem;
+    color: $text-color; /* Darker color for text on white background */
+  }
+
+  ul {
+    margin-left: 13px;
+    padding: 0;
+    list-style: none;
+    font-size: 1rem;
+    color: $text-color; /* Darker color for list items */
+  }
+
+  li {
+    margin-top: 20px;
+    margin-bottom: 1rem;
+    &:before {
+      content: "\2022";
+      color: $text-color;
+      display: inline-block;
+      width: 0.8em;
+      margin-left: -0.8em;
+    }
+  }
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-areas:
+      "brand"
+      "list"
+      "note";
+    text-align: center;
+    gap: 20px;
+
+    .footer-brand,
+    .footer-note {
+      justify-self: center;
+    }
+
+    .list-group {
+      flex-direction: column;
+      gap: 20px;
+    }
+  }
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\general-footer\general-footer.component.spec.ts
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { GeneralFooterComponent } from './general-footer.component';
+
+describe('GeneralFooterComponent', () => {
+  let component: GeneralFooterComponent;
+  let fixture: ComponentFixture<GeneralFooterComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [GeneralFooterComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(GeneralFooterComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\general-footer\general-footer.component.ts
+
+import { Component } from '@angular/core';
+
+@Component({
+  selector: 'yt-downloader-root-general-footer',
+  standalone: true,
+  imports: [],
+  templateUrl: './general-footer.component.html',
+  styleUrl: './general-footer.component.scss'
+})
+export class GeneralFooterComponent {
+
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\input-view\input-view.component.html
+
+<div class="sidebar" [ngClass]="{ active: isActive }">
+  <ul class="list-group">
+    <li class="list-group-item">
+      <a class="nav-link" href="/">Home</a>
+    </li>
+    <li class="list-group-item">
+      <a
+        class="nav-link"
+        href="javascript:void(0)"
+        (click)="setCurrentMenuService($event)"
+        >Download Video</a
+      >
+    </li>
+    <li class="list-group-item">
+      <a
+        class="nav-link"
+        href="javascript:void(0)"
+        (click)="setCurrentMenuService($event)"
+        >Download Audio</a
+      >
+    </li>
+    <li class="list-group-item">
+      <a class="nav-link" href="javascript:void(0)" (click)="scrollToFooter()"
+        >Contact</a
+      >
+    </li>
+  </ul>
+  <div class="sidebar-footer mt-auto p-2 bg-secondary text-white text-center">
+    <small>© 2024 Your Company</small>
+  </div>
+</div>
+
+<div class="main-container container">
+  <h1 class="category-title">Youtube Downloader<br />{{ serviceName }}</h1>
+  <h5 class="notice">Download for free now!</h5>
+  <div class="input-container row mx-1">
+    <div class="col">
+      <input
+        type="text"
+        placeholder="Enter the link here"
+        class="form-control styled-input"
+        [(ngModel)]="url"
+      />
+    </div>
+    <div class="col-auto">
+      <button
+        class="btn btn-primary styled-button"
+        (click)="handleButtonClick()"
+      >
+        <div class="button-content">
+          <div #buttonIconWrapper class="button-icon-wrapper">
+            <img
+              src="assets/cloud-download.png"
+              class="button-icon"
+              alt="Download Icon"
+            />
+          </div>
+          <div class="button-separator"></div>
+          <div class="button-text">Download</div>
+        </div>
+      </button>
+    </div>
+  </div>
+
+  <div *ngIf="showErrorPopup" class="error-popup">
+    Download failed. Please try again.
+  </div>
+
+  <h5 class="no-copyright">
+    {{ "@ " }}No copyright claims on downloaded content.
+  </h5>
+  <div class="photo-grid">
+    <div class="photo-item">
+      <a
+        href="https://www.facebook.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img
+          src="assets/vecteezy_facebook-logo-png-facebook-icon-transparent-png_18930481.png"
+        />
+      </a>
+    </div>
+    <div class="photo-item">
+      <a
+        href="https://www.instagram.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src="assets/—Pngtree—3d instagram icon_4169165.png" />
+      </a>
+    </div>
+    <div class="photo-item">
+      <a
+        href="https://www.tiktok.com"
+        target="_blank"
+        rel="noopener noreferrer"
+      >
+        <img src="assets/vecteezy_tik-tok-icon-3d-render_9826607.png" />
+      </a>
+    </div>
+    <div class="photo-item">
+      <a href="https://www.x.com" target="_blank" rel="noopener noreferrer">
+        <img
+          src="assets/vecteezy_new-twitter-x-logo-twitter-icon-x-social-media-icon_42148611.png"
+        />
+      </a>
+    </div>
+  </div>
+</div>
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\input-view\input-view.component.scss
+
+@import "../../styles.scss";
+
+.sidebar {
+  position: fixed;
+  top: calc(
+    100px + 40px
+  ); /* Adjust this to place it below the navbar and leave a bit of space */
+  right: 0; /* Change from left to right */
+  width: 250px;
+  height: calc(100% - 87px); /* Adjust the height to fit the screen */
+  background: $box-color;
+  color: $text-color;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease; /* Smooth transition */
+  transform: translateX(100%); /* Move it out of the screen initially */
+  border-radius: 20px;
+  border-left: 1px solid #ffffff;
+  border-top: 1px solid #ffffff;
+  padding-top: 16px;
+  z-index: 9999; /* Ensure sidebar is above all other elements */
+
+  @media (max-width: 768px) {
+    margin-top: 0.5rem;
+  }
+}
+
+.sidebar.active {
+  transform: translateX(0); /* Slide it in */
+}
+
+.sidebar .list-group-item {
+  position: relative; /* For positioning the separator line */
+  background: $box-color;
+  color: $text-color;
+  border: none; /* Remove any default borders */
+  font-size: 1.6rem; /* Increase font size */
+  text-align: center;
+  margin-bottom: 40px; /* Space between items */
+  padding: 10px 20px; /* Padding for better spacing inside the items */
+  border-radius: 20px; /* Rounded corners */
+  display: inline-block; /* Allow items to take as much space as needed */
+}
+
+.sidebar .list-group-item::after {
+  content: "";
+  position: absolute;
+  bottom: -20px; /* Center line in the margin space */
+  left: 50%;
+  transform: translateX(-50%);
+  width: 90%; /*x Width of the separating line */
+  height: 2px; /* Thickness of the separating line */
+  background-color: $text-color; /* Color of the separating line */
+}
+
+.list-group-item:hover {
+  background-color: $box-color-light !important;
+}
+
+.sidebar-footer {
+  border-top: 1px solid $text-color; /* Add a top border to the footer */
+  margin-top: auto; /* Push the footer to the bottom */
+}
+
+.main-container {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  margin-top: 1rem;
+  background-color: $primary-color !important;
+}
+
+.category-title {
+  font-weight: bold;
+  margin-top: 4rem;
+  font-size: 5rem;
+  background: linear-gradient(to right, $text-color, $hover-link-color);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+
+  @media (max-width: 768px) {
+    font-size: 3rem;
+  }
+}
+
+.input-container {
+  display: grid;
+  grid-template-columns: 1fr auto; /* Define columns for input and button */
+  align-items: center; /* Center items vertically */
+  justify-content: space-between; /* Distribute items evenly */
+  width: 100%;
+  max-width: 100%; /* Ensure full width usage */
+  height: 85px;
+  border: 1px solid $box-color-light;
+  border-radius: 30px;
+  padding: 12px 20px; /* Padding around content */
+  background-color: $box-color;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  color: $text-color;
+  box-sizing: border-box; /* Include padding in total width/height */
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto;
+    padding: 8px;
+    gap: 5rem; /* Increased space between input and button */
+  }
+}
+
+.styled-input {
+  grid-column: 1 / 2; /* Place the input in the first column */
+  width: 100%;
+  max-width: none; /* Remove max-width restriction to take full available space */
+  border: none;
+  outline: none;
+  font-size: 1.3rem;
+  border-radius: 30px;
+  background: transparent;
+  color: $text-color;
+  transition: all 0.3s ease;
+  box-shadow: inset 0 0 0 1px $box-color; /* Button outline */
+  margin-left: -10px;
+}
+
+.styled-button {
+  grid-column: 2 / 3; /* Second column for button */
+  max-width: none; /* Allow button to adjust based on content */
+  width: auto; /* Auto width to fit content */
+  background-color: rgb(82, 101, 214);
+  color: $text-color;
+  border: none;
+  border-radius: 30px;
+  cursor: pointer;
+  justify-self: end; /* Align button to the right */
+  display: flex;
+  align-items: center;
+  padding: 7px 35px; /* Padding inside the button */
+  margin-right: 10px; /* Space from the right edge of the container */
+  box-shadow: inset 0 0 0 1px $box-color-light; /* Button outline */
+  overflow: hidden; /* Ensure contents do not overflow the button */
+  transition: background 0.3s ease;
+}
+
+.styled-button:hover {
+  background: darkblue !important; /* Change background color on hover */
+}
+
+.button-content {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  justify-content: space-between;
+}
+
+.button-icon-wrapper {
+  background: transparent;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding-right: 10px; /* Space between icon and separator */
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+.button-icon {
+  width: 34px;
+  height: 34px;
+}
+
+.button-separator {
+  width: 1px;
+  height: 24px; /* Adjust height as needed */
+  background-color: #ffffff;
+  margin: 0 10px;
+}
+
+/* Animation for icon disappearance and reappearance */
+@keyframes iconDisappear {
+  0% {
+    transform: translateY(0);
+    opacity: 1;
+  }
+  80% {
+    transform: translateY(50%);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0);
+    opacity: 0;
+  }
+}
+
+@keyframes iconReappear {
+  0% {
+    opacity: 0;
+    transform: translateY(50%);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.icon-disappear {
+  animation: iconDisappear 0.5s forwards, iconReappear 0.5s 1.5s forwards; /* Disappear and reappear */
+}
+
+.button-text {
+  text-align: center;
+  font-size: 1.2rem;
+  font-weight: bold;
+  white-space: nowrap; /* Prevent text from wrapping */
+  overflow: hidden; /* Clip the overflowing content */
+  text-overflow: ellipsis; /* Show ellipsis if text overflows */
+}
+
+.no-copyright,
+.notice {
+  font-size: 0.9rem;
+  color: rgb(82, 101, 214);
+  text-align: center;
+  background-color: $primary-color !important; /* Ensure background is dark */
+}
+
+.no-copyright {
+  margin-top: 2.7rem;
+}
+
+.notice {
+  opacity: 80%;
+  margin-top: 0.8rem; /* Adjust the margin as needed */
+  margin-bottom: 4.5rem; /* Ensure no extra space below */
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+  .styled-input {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .styled-button {
+    width: 100%;
+    margin-right: 0; /* Reset margin in small screens */
+  }
+
+  .no-copyright {
+    margin-top: 7.7rem;
+  }
+}
+
+.photo-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr); /* 1 row with 4 columns */
+  gap: 20px; /* Space between photos */
+  justify-items: center; /* Center items horizontally */
+  align-items: center; /* Center items vertically */
+  margin-top: 90px; /* Space from the previous element */
+
+  @media (max-width: 768px) {
+    grid-template-columns: 1fr 1fr;
+    gap: 15px;
+  }
+}
+
+.photo-item {
+  background-color: transparent; /* Transparent background */
+  border-radius: 10px; /* Optional: rounded corners */
+  overflow: hidden; /* Ensure images don't overflow */
+  width: 150px; /* Consistent width for photos */
+  height: 150px; /* Consistent height for photos */
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: transform 0.3s ease; /* Smooth transition for the transform property */
+
+  @media (max-width: 768px) {
+    width: 100px;
+    height: 100px;
+  }
+}
+
+.photo-item img {
+  width: 100%; /* Make image fit the container */
+  height: 100%; /* Maintain aspect ratio */
+  object-fit: contain; /* Ensure the image scales uniformly */
+  pointer-events: none; /* Consistent hover effect */
+}
+
+.photo-item:hover {
+  transform: translateY(-40px); /* Slide up effect on hover */
+}
+
+.error-popup {
+  position: absolute;
+  top: 100%; /* Place it directly under the button */
+  left: 50%;
+  transform: translate(-50%, 20px); /* Initially below the button */
+  background-color: rgba(255, 0, 0, 0.8);
+  color: white;
+  padding: 10px 20px;
+  border-radius: 5px;
+  text-align: center;
+  z-index: 1000;
+  opacity: 0;
+  animation: fadeInUp 0.5s forwards; /* Animation for fading in */
+}
+
+@keyframes fadeInUp {
+  0% {
+    transform: translate(-50%, 20px); /* Start below the button */
+    opacity: 0;
+  }
+  100% {
+    transform: translate(-50%, 0); /* End directly under the button */
+    opacity: 1;
+  }
+}
+
+@media (max-width: 768px) {
+  .error-popup {
+    width: calc(100% - 60px); /* Adjust width for mobile */
+    left: 50%;
+    transform: translateX(-90%); /* Center align */
+  }
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\input-view\input-view.component.spec.ts
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { InputViewComponent } from './input-view.component';
+
+describe('InputViewComponent', () => {
+  let component: InputViewComponent;
+  let fixture: ComponentFixture<InputViewComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [InputViewComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(InputViewComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\input-view\input-view.component.ts
+
+import {
+  Component,
+  Input,
+  Output,
+  OnInit,
+  EventEmitter,
+  HostListener,
+  ElementRef,
+  ViewChild,
+} from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SidebarService } from '../sidebar-service';
+import axios, { AxiosResponse } from 'axios';
+import { APIDownloadData } from '../../models/APIDownloadData';
+import { FormsModule } from '@angular/forms'; // Import FormsModule
+
+@Component({
+  selector: 'yt-downloader-root-input-view',
+  standalone: true,
+  templateUrl: './input-view.component.html',
+  styleUrls: ['./input-view.component.scss'],
+  imports: [CommonModule, FormsModule],
+})
+export class InputViewComponent implements OnInit {
+  @Input() serviceName: string = 'Download Video';
+
+  @Output() currentMenuService: EventEmitter<string> =
+    new EventEmitter<string>();
+
+  isActive: boolean = false;
+  url: string = '';
+  showErrorPopup: boolean = false; // Property to track the popup visibility
+
+  @ViewChild('buttonIconWrapper')
+  buttonIconWrapper!: ElementRef<HTMLDivElement>;
+
+  constructor(private sidebarService: SidebarService) {}
+
+  ngOnInit() {
+    this.sidebarService.isSidebarActive$.subscribe(
+      (isActive) => (this.isActive = isActive)
+    );
+  }
+
+  toggleSidebar() {
+    this.sidebarService.toggleSidebar();
+  }
+
+  setCurrentMenuService(serviceNameEvent: Event) {
+    const serviceTarget = serviceNameEvent.target as HTMLElement;
+    const serviceNameText = serviceTarget.innerText;
+    this.currentMenuService.emit(serviceNameText);
+    this.sidebarService.toggleSidebar();
+  }
+
+  scrollToFooter() {
+    document
+      .querySelector('yt-downloader-root-general-footer')
+      ?.scrollIntoView({ behavior: 'smooth' });
+
+    this.toggleSidebar();
+  }
+
+  @HostListener('document:keydown.escape', ['$event'])
+  handleEscape(event: KeyboardEvent) {
+    if (this.isActive) {
+      this.sidebarService.toggleSidebar(false);
+    }
+  }
+
+  async handleButtonClick() {
+    // Animation toggle
+    if (this.buttonIconWrapper) {
+      this.buttonIconWrapper.nativeElement.classList.add('icon-disappear');
+      setTimeout(() => {
+        this.buttonIconWrapper.nativeElement.classList.remove('icon-disappear');
+      }, 2000); // Remove the class after 2 seconds
+    }
+
+    try {
+      // Determine the endpoint by the service name
+      const endpoint: string = `http://localhost:5000/youtube/${
+        this.serviceName.toLowerCase().endsWith('video') ? 'video' : 'audio'
+      }`;
+
+      // API request
+      const response: AxiosResponse<APIDownloadData> = await axios.get(
+        endpoint,
+        {
+          params: {
+            url: this.url,
+          }, // Include the URL as query parameter
+          headers: {
+            'Content-Type': 'application/json',
+          },
+          responseType: 'blob', // Expecting a Blob response
+        }
+      );
+
+      // Extract the data from the response
+      const { filename, data } = response.data;
+
+      // Create a download link
+      const downloadLink = document.createElement('a');
+      const url = window.URL.createObjectURL(data);
+      downloadLink.href = url;
+      downloadLink.download = filename;
+      document.body.appendChild(downloadLink);
+      downloadLink.click();
+
+      // Clean up
+      document.body.removeChild(downloadLink);
+      window.URL.revokeObjectURL(url);
+    } catch (error) {
+      console.error('Error downloading the file:', error);
+      this.showPopup();
+    }
+  }
+
+  showPopup() {
+    this.showErrorPopup = true;
+    setTimeout(() => {
+      this.showErrorPopup = false;
+    }, 3000); // Hide the popup after 3 seconds
+  }
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\navigation-services\navigation-services.component.html
+
+<nav class="navbar navbar-expand-lg navbar-light shadow-sm rounded mb-4 py-3">
+  <a
+    class="navbar-brand text-white gradient-title"
+    href="/"
+    style="font-size: 1.8rem"
+  >
+    Youtube Downloader
+  </a>
+  <div class="collapse navbar-collapse" id="navbarNav">
+    <ul class="navbar-nav ml-auto">
+      <li class="nav-item">
+        <a class="nav-link text-white" href="/">Home</a>
+      </li>
+      <div class="nav-separator"></div>
+      <li class="nav-item">
+        <a
+          class="nav-link text-white"
+          href="javascript:void(0)"
+          (click)="updateData($event)"
+          >Download Video</a
+        >
+      </li>
+      <div class="nav-separator"></div>
+      <li class="nav-item">
+        <a
+          class="nav-link text-white"
+          href="javascript:void(0)"
+          (click)="updateData($event)"
+          >Download Audio</a
+        >
+      </li>
+    </ul>
+  </div>
+  <button
+    class="btn btn-outline-secondary my-2 my-sm-0 menu-toggle-button"
+    type="button"
+    (click)="toggleSidebarInInputView()"
+  >
+    <i class="bi bi-list"></i>
+  </button>
+</nav>
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\navigation-services\navigation-services.component.scss
+
+@import "../../styles.scss";
+
+.navbar {
+  margin-top: 0.5rem; /* Reduced margin-top */
+  background-color: $box-color !important;
+  border-radius: 50px; /* Make the navbar more rounded */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a slight shadow */
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Three columns: auto for brand, 1fr for spacer, auto for button */
+    align-items: center; /* Center items vertically */
+    padding: 0 0.2rem; /* Further reduce padding */
+    gap: 2px; /* Further reduce gap between elements */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Three columns: auto for brand, 1fr for spacer, auto for button */
+    align-items: center; /* Center items vertically */
+    padding: 0 0.2rem; /* Further reduce padding */
+  }
+
+  .navbar-brand {
+    grid-column: 1; /* Position brand in the first column */
+    justify-self: start; /* Align brand to the left */
+    font-size: 0.8rem; /* Further reduce font size */
+    padding-left: 0;
+  }
+
+  .menu-toggle-button {
+    grid-column: 3; /* Position toggle button in the third column */
+    justify-self: end; /* Align button to the right */
+    font-size: 0.8rem; /* Further reduce font size */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+  }
+
+  .navbar-collapse,
+  .navbar-nav,
+  .nav-item {
+    display: none; /* Hide all other nav items */
+  }
+}
+
+.navbar-brand {
+  font-size: 2rem; /* Enlarge the brand font size */
+  font-weight: bold; /* Make the font bold */
+  font-family: "Arial", sans-serif; /* More stylish font */
+  background: linear-gradient(
+    to right,
+    blue,
+    lightblue
+  ); /* Add linear gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  padding-right: 2.7rem; /* Move the title a bit to the right */
+  padding-left: 2.5rem; /* Move the title a bit to the right */
+
+  @media (max-width: 768px) {
+    grid-column: 1; /* Position brand in the first column */
+    justify-self: start; /* Align brand to the left */
+    font-size: 0.4rem; /* Further reduced font size */
+    margin: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding: 0px;
+  }
+}
+
+.navbar-nav {
+  padding: 0 1px; /* Further reduce padding */
+}
+
+.nav-item {
+  position: relative; /* Position relative for the separator */
+  padding: 5px; /* Further reduce padding */
+
+  @media (max-width: 768px) {
+    padding: 2px; /* Further reduce padding */
+    font-size: 0.8rem; /* Further reduce font size */
+  }
+}
+
+.nav-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 50%; /* Adjust height as needed */
+  border-right: 1px solid $text-color; /* Further reduce line thickness */
+}
+
+.nav-link {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1rem; /* Further reduce font size */
+  color: $text-color !important;
+  padding: 3px 10px; /* Further reduce padding */
+  border-radius: 20px;
+}
+
+.nav-link:hover {
+  background-color: $hover-link-color-dark;
+}
+
+.menu-toggle-button {
+  font-size: 1.2rem; /* Further reduce font size */
+  margin-right: 2rem; /* Further reduce margin */
+
+  .bi-list {
+    font-size: 1.5rem; /* Further adjust icon size */
+    color: $text-color !important;
+  }
+
+  border-color: transparent !important;
+
+  @media (max-width: 768px) {
+    grid-column: 3; /* Position toggle button in the third column */
+    justify-self: end; /* Align button to the right */
+    font-size: 0.4rem; /* Further reduce font size */
+    padding: 0; /* Remove padding */
+    margin-right: 0;
+    margin-right: 23px;
+  }
+}
+
+.nav-options {
+  font-size: 1.2rem; /* Further reduce font size */
+  background-color: $box-color;
+  color: $text-color;
+}
+
+.nav-options-list li {
+  padding-top: 10px; /* Further reduce padding */
+  padding-bottom: 10px; /* Further reduce padding */
+  color: $text-color;
+}
+
+.gradient-title {
+  background: linear-gradient(to right, blue, lightblue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  margin-left: 20px; /* Slightly move the title to the right */
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\navigation-services\navigation-services.component.spec.ts
+
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+
+import { NavigationServicesComponent } from './navigation-services.component';
+
+describe('NavigationServicesComponent', () => {
+  let component: NavigationServicesComponent;
+  let fixture: ComponentFixture<NavigationServicesComponent>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [NavigationServicesComponent]
+    })
+    .compileComponents();
+
+    fixture = TestBed.createComponent(NavigationServicesComponent);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\navigation-services\navigation-services.component.ts
+
+import { Component, EventEmitter, Output } from '@angular/core';
+import { CommonModule } from '@angular/common';
+import { SidebarService } from '../sidebar-service';
+
+@Component({
+  selector: 'yt-downloader-root-navigation-services',
+  standalone: true,
+  imports: [CommonModule],
+  templateUrl: './navigation-services.component.html',
+  styleUrls: ['./navigation-services.component.scss'],
+})
+export class NavigationServicesComponent {
+  @Output() serviceName = new EventEmitter<string>();
+  isNavOptionsOpen = false;
+
+  constructor(private sidebarService: SidebarService) {}
+
+  updateData(serviceNameEvent: Event) {
+    const serviceTarget = serviceNameEvent.target as HTMLElement;
+    const serviceNameText = serviceTarget.innerText;
+    this.serviceName.emit(serviceNameText);
+    this.toggleNavOptions(false);
+  }
+
+  toggleNavOptions(open?: boolean) {
+    this.isNavOptionsOpen = open ? open : !this.isNavOptionsOpen;
+
+    const navOptionsElement = document.getElementById('navOptions');
+    if (navOptionsElement) {
+      if (this.isNavOptionsOpen) {
+        navOptionsElement.classList.add('show-nav-options');
+        navOptionsElement.classList.remove('hide-nav-options');
+      } else {
+        navOptionsElement.classList.add('hide-nav-options');
+        navOptionsElement.classList.remove('show-nav-options');
+      }
+    }
+  }
+
+  toggleSidebarInInputView() {
+    if (window.innerWidth <= 768) {
+      const sidebar = document.querySelector('.sidebar') as HTMLElement;
+      sidebar.style.transition = 'transform 0.3s ease';
+      this.sidebarService.toggleSidebar();
+      setTimeout(() => {
+        sidebar.style.transition = '';
+      }, 300);
+    } else {
+      this.sidebarService.toggleSidebar();
+    }
+  }
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\app\sidebar-service.ts
+
+import { Injectable } from '@angular/core';
+import { BehaviorSubject } from 'rxjs';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class SidebarService {
+  private _isSidebarActive = new BehaviorSubject<boolean>(false);
+  isSidebarActive$ = this._isSidebarActive.asObservable();
+
+  toggleSidebar(active: boolean = false) {
+    this._isSidebarActive.next(active ? active : !this._isSidebarActive.value);
+  }
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\index.html
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <title>Youtube Downloader</title>
+    <base href="/" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="icon" type="image/x-icon" href="favicon.ico" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-icons/1.5.0/font/bootstrap-icons.min.css"
+    />
+  </head>
+  <body>
+    <yt-downloader-root></yt-downloader-root>
+  </body>
+</html>
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\main.server.ts
+
+import { bootstrapApplication } from '@angular/platform-browser';
+import { AppComponent } from './app/app.component';
+import { config } from './app/app.config.server';
+
+const bootstrap = () => bootstrapApplication(AppComponent, config);
+
+export default bootstrap;
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\main.ts
+
+/**
+ * This is the main of our app / Entry point
+ */
+import { bootstrapApplication } from '@angular/platform-browser';
+import { appConfig } from './app/app.config';
+import { AppComponent } from './app/app.component';
+
+bootstrapApplication(AppComponent, appConfig).catch((err) =>
+  console.error(err)
+);
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\models\APIDownloadData.ts
+
+export interface APIDownloadData {
+  filename: string;
+  data: Blob;
+}
+
+
+// File: C:\University\Fullstack_Dev\Angular\hotel_invetory_app\hotelinventoryapp\src\styles.scss
+
+$primary-color: #121212;
+$box-color: #2a2a2a;
+$box-color-light: #424242;
+$secondary-color: #ff1493;
+$tertiary-color: #800080;
+$accent-color-light: #00bfff;
+$accent-color-dark: #00008b;
+$text-color: #ffffff;
+$hover-link-color: #d2d2d2;
+$title-gradient: #ffffff;
+$hover-link-color-dark: #858585;
+
+body {
+  font-size: 16px;
+  @media (max-width: 768px) {
+    font-size: 14px;
+  }
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  margin: 0.5em 0;
+}

@@ -1,0 +1,153 @@
+@import "../../styles.scss";
+
+.navbar {
+  margin-top: 0.5rem; /* Reduced margin-top */
+  background-color: $box-color !important;
+  border-radius: 50px; /* Make the navbar more rounded */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1); /* Add a slight shadow */
+
+  @media (max-width: 768px) {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Three columns: auto for brand, 1fr for spacer, auto for button */
+    align-items: center; /* Center items vertically */
+    padding: 0 0.2rem; /* Further reduce padding */
+    gap: 2px; /* Further reduce gap between elements */
+  }
+}
+
+@media (max-width: 768px) {
+  .navbar {
+    display: grid;
+    grid-template-columns: auto 1fr auto; /* Three columns: auto for brand, 1fr for spacer, auto for button */
+    align-items: center; /* Center items vertically */
+    padding: 0 0.2rem; /* Further reduce padding */
+  }
+
+  .navbar-brand {
+    grid-column: 1; /* Position brand in the first column */
+    justify-self: start; /* Align brand to the left */
+    font-size: 0.8rem; /* Further reduce font size */
+    padding-left: 0;
+  }
+
+  .menu-toggle-button {
+    grid-column: 3; /* Position toggle button in the third column */
+    justify-self: end; /* Align button to the right */
+    font-size: 0.8rem; /* Further reduce font size */
+    padding: 0; /* Remove padding */
+    margin: 0; /* Remove margin */
+  }
+
+  .navbar-collapse,
+  .navbar-nav,
+  .nav-item {
+    display: none; /* Hide all other nav items */
+  }
+}
+
+.navbar-brand {
+  font-size: 2rem; /* Enlarge the brand font size */
+  font-weight: bold; /* Make the font bold */
+  font-family: "Arial", sans-serif; /* More stylish font */
+  background: linear-gradient(
+    to right,
+    blue,
+    lightblue
+  ); /* Add linear gradient */
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  text-align: center;
+  padding-right: 2.7rem; /* Move the title a bit to the right */
+  padding-left: 2.5rem; /* Move the title a bit to the right */
+
+  @media (max-width: 768px) {
+    grid-column: 1; /* Position brand in the first column */
+    justify-self: start; /* Align brand to the left */
+    font-size: 0.4rem; /* Further reduced font size */
+    margin: 0px;
+    padding-right: 0px;
+    padding-left: 0px;
+    padding: 0px;
+  }
+}
+
+.navbar-nav {
+  padding: 0 1px; /* Further reduce padding */
+}
+
+.nav-item {
+  position: relative; /* Position relative for the separator */
+  padding: 5px; /* Further reduce padding */
+
+  @media (max-width: 768px) {
+    padding: 2px; /* Further reduce padding */
+    font-size: 0.8rem; /* Further reduce font size */
+  }
+}
+
+.nav-item:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 50%;
+  transform: translateY(-50%);
+  height: 50%; /* Adjust height as needed */
+  border-right: 1px solid $text-color; /* Further reduce line thickness */
+}
+
+.nav-link {
+  font-family: "Trebuchet MS", "Lucida Sans Unicode", "Lucida Grande",
+    "Lucida Sans", Arial, sans-serif;
+  font-weight: bold;
+  font-style: italic;
+  font-size: 1rem; /* Further reduce font size */
+  color: $text-color !important;
+  padding: 3px 10px; /* Further reduce padding */
+  border-radius: 20px;
+}
+
+.nav-link:hover {
+  background-color: $hover-link-color-dark;
+}
+
+.menu-toggle-button {
+  font-size: 1.2rem; /* Further reduce font size */
+  margin-right: 2rem; /* Further reduce margin */
+
+  .bi-list {
+    font-size: 1.5rem; /* Further adjust icon size */
+    color: $text-color !important;
+  }
+
+  border-color: transparent !important;
+
+  @media (max-width: 768px) {
+    grid-column: 3; /* Position toggle button in the third column */
+    justify-self: end; /* Align button to the right */
+    font-size: 0.4rem; /* Further reduce font size */
+    padding: 0; /* Remove padding */
+    margin-right: 0;
+    margin-right: 23px;
+  }
+}
+
+.nav-options {
+  font-size: 1.2rem; /* Further reduce font size */
+  background-color: $box-color;
+  color: $text-color;
+}
+
+.nav-options-list li {
+  padding-top: 10px; /* Further reduce padding */
+  padding-bottom: 10px; /* Further reduce padding */
+  color: $text-color;
+}
+
+.gradient-title {
+  background: linear-gradient(to right, blue, lightblue);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  font-weight: bold;
+  font-family: "Arial", sans-serif;
+  margin-left: 20px; /* Slightly move the title to the right */
+}
