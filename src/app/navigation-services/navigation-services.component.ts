@@ -10,6 +10,25 @@ import { SidebarService } from '../sidebar-service';
   styleUrls: ['./navigation-services.component.scss'],
 })
 export class NavigationServicesComponent {
+  // The navbar options for the dynamic ngfor
+  navOptions = [
+    {
+      optionName: 'Home',
+      _href: '/',
+      callback: function () {},
+    },
+    {
+      optionName: 'Video',
+      _href: 'javascript:void(0)',
+      callback: (event: Event) => this.updateData(event),
+    },
+    {
+      optionName: 'Audio',
+      _href: 'javascript:void(0)',
+      callback: (event: Event) => this.updateData(event),
+    },
+  ];
+
   @Output() serviceName = new EventEmitter<string>();
   isNavOptionsOpen = false;
 

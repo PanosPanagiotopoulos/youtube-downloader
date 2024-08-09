@@ -4,15 +4,17 @@ import {
   Output,
   OnInit,
   EventEmitter,
-  HostListener,
-  ElementRef,
   ViewChild,
+  ElementRef,
+  OnChanges,
+  SimpleChanges,
+  AfterViewInit,
 } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SidebarService } from '../sidebar-service';
+import { FormsModule } from '@angular/forms';
 import axios, { AxiosResponse } from 'axios';
 import { APIDownloadData } from '../../models/APIDownloadData';
-import { FormsModule } from '@angular/forms'; // Import FormsModule
 
 @Component({
   selector: 'yt-downloader-root-input-view',
@@ -21,18 +23,43 @@ import { FormsModule } from '@angular/forms'; // Import FormsModule
   styleUrls: ['./input-view.component.scss'],
   imports: [CommonModule, FormsModule],
 })
-export class InputViewComponent implements OnInit {
-  @Input() serviceName: string = 'Download Video';
-
+export class InputViewComponent
+  implements OnInit, AfterViewInit, OnChanges, OnChanges
+{
+  @Input() serviceName: string = 'Video';
   @Output() currentMenuService: EventEmitter<string> =
     new EventEmitter<string>();
 
   isActive: boolean = false;
   url: string = '';
-  showErrorPopup: boolean = false; // Property to track the popup visibility
+  showErrorPopup: boolean = false;
 
+  @ViewChild('categoryTitle') categoryTitle!: ElementRef<HTMLSpanElement>;
   @ViewChild('buttonIconWrapper')
   buttonIconWrapper!: ElementRef<HTMLDivElement>;
+
+  sidebarOptions = [
+    {
+      optionName: 'Home',
+      _href: '/',
+      callback: function () {},
+    },
+    {
+      optionName: 'Video',
+      _href: 'javascript:void(0)',
+      callback: (event: Event) => this.setCurrentMenuService(event),
+    },
+    {
+      optionName: 'Audio',
+      _href: 'javascript:void(0)',
+      callback: (event: Event) => this.setCurrentMenuService(event),
+    },
+    {
+      optionName: 'Contact',
+      _href: 'javascript:void(0)',
+      callback: (event: Event) => this.scrollToFooter(),
+    },
+  ];
 
   constructor(private sidebarService: SidebarService) {}
 
@@ -40,10 +67,42 @@ export class InputViewComponent implements OnInit {
     this.sidebarService.isSidebarActive$.subscribe(
       (isActive) => (this.isActive = isActive)
     );
+
+    this.triggerTypingAnimation();
   }
 
-  toggleSidebar() {
-    this.sidebarService.toggleSidebar();
+  ngAfterViewInit() {
+    this.triggerTypingAnimation();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes['serviceName']) {
+      this.triggerTypingAnimation();
+    }
+  }
+
+  triggerTypingAnimation() {
+    if (!this.categoryTitle) {
+      console.error('categoryTitle element is not available.');
+      return;
+    }
+
+    setTimeout(() => {
+      const text = 'Get your: ' + this.serviceName;
+      let i = 0;
+      const speed = 50;
+
+      this.categoryTitle.nativeElement.innerHTML = ''; // Clear the text
+      const typeWriter = () => {
+        if (i < text.length) {
+          this.categoryTitle.nativeElement.innerHTML += text.charAt(i);
+          i++;
+          setTimeout(typeWriter, speed);
+        }
+      };
+
+      typeWriter();
+    }, 100); // Adjust the delay time as necessary
   }
 
   setCurrentMenuService(serviceNameEvent: Event) {
@@ -61,7 +120,10 @@ export class InputViewComponent implements OnInit {
     this.toggleSidebar();
   }
 
-  @HostListener('document:keydown.escape', ['$event'])
+  toggleSidebar() {
+    this.sidebarService.toggleSidebar();
+  }
+
   handleEscape(event: KeyboardEvent) {
     if (this.isActive) {
       this.sidebarService.toggleSidebar(false);
@@ -89,7 +151,7 @@ export class InputViewComponent implements OnInit {
         {
           params: {
             url: this.url,
-          }, // Include the URL as query parameter
+          },
           headers: {
             'Content-Type': 'application/json',
           },

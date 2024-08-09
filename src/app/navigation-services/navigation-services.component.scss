@@ -46,7 +46,7 @@
 }
 
 .navbar-brand {
-  font-size: 2rem; /* Enlarge the brand font size */
+  font-size: 2.3rem; /* Enlarge the brand font size */
   font-weight: bold; /* Make the font bold */
   font-family: "Arial", sans-serif; /* More stylish font */
   background: linear-gradient(
@@ -57,8 +57,9 @@
   -webkit-background-clip: text;
   -webkit-text-fill-color: transparent;
   text-align: center;
-  padding-right: 2.7rem; /* Move the title a bit to the right */
+  padding-right: 1.8rem; /* Move the title a bit to the right */
   padding-left: 2.5rem; /* Move the title a bit to the right */
+  padding-bottom: 3px;
 
   @media (max-width: 768px) {
     grid-column: 1; /* Position brand in the first column */
@@ -100,10 +101,11 @@
     "Lucida Sans", Arial, sans-serif;
   font-weight: bold;
   font-style: italic;
-  font-size: 1rem; /* Further reduce font size */
+  font-size: 1.28rem; /* Further reduce font size */
   color: $text-color !important;
-  padding: 3px 10px; /* Further reduce padding */
+  padding: 1px 3px; /* Further reduce padding */
   border-radius: 20px;
+  margin-top: 3px;
 }
 
 .nav-link:hover {

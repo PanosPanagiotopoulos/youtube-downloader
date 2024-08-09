@@ -1,27 +1,11 @@
 <div class="sidebar" [ngClass]="{ active: isActive }">
   <ul class="list-group">
-    <li class="list-group-item">
-      <a class="nav-link" href="/">Home</a>
-    </li>
-    <li class="list-group-item">
+    <li class="list-group-item" *ngFor="let sideOption of sidebarOptions">
       <a
         class="nav-link"
-        href="javascript:void(0)"
-        (click)="setCurrentMenuService($event)"
-        >Download Video</a
-      >
-    </li>
-    <li class="list-group-item">
-      <a
-        class="nav-link"
-        href="javascript:void(0)"
-        (click)="setCurrentMenuService($event)"
-        >Download Audio</a
-      >
-    </li>
-    <li class="list-group-item">
-      <a class="nav-link" href="javascript:void(0)" (click)="scrollToFooter()"
-        >Contact</a
+        href="{{ sideOption._href }}"
+        (click)="sideOption.callback($event)"
+        >{{ sideOption.optionName }}</a
       >
     </li>
   </ul>
@@ -31,7 +15,12 @@
 </div>
 
 <div class="main-container container">
-  <h1 class="category-title">Youtube Downloader<br />{{ serviceName }}</h1>
+  <h1 class="category-title">
+    <span class="constant-title">Youtube 4K Video / Audio Downloader</span
+    ><br />
+    <span #categoryTitle class="dynamic-title">{{ serviceName }}</span>
+  </h1>
+
   <h5 class="notice">Download for free now!</h5>
   <div class="input-container row mx-1">
     <div class="col">
